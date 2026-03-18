@@ -1,0 +1,7 @@
+CREATE TABLE leiloes (
+    id BIGSERIAL PRIMARY KEY,
+    nome VARCHAR(255) NOT NULL,
+    data DATE NOT NULL,
+    status BOOLEAN NOT NULL DEFAULT TRUE,
+    image_url VARCHAR(1000)
+);
