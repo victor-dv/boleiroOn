@@ -1,5 +1,6 @@
 package br.com.boleiroOn.domain.user.dto;
 
+import br.com.boleiroOn.domain.user.enums.UserRole;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -12,6 +13,8 @@ public record UserRegisterDto(
         @NotBlank
         String login,
         @NotBlank @Size(min = 6, max = 100)
-        String password
+        String password,
+        @NotBlank
+        UserRole role
 ) {
 }
