@@ -21,7 +21,7 @@ public class LeilaoController {
     private final LeilaoService leilaoService;
 
 
-    @PostMapping
+    @PostMapping("/")
     public ResponseEntity<ApiResponse<LeilaoResponseDto>> create(@RequestBody @Valid LeilaoRequestDto data, UriComponentsBuilder uriBuilder) {
 
         var novoLeilao = leilaoService.create(data);
