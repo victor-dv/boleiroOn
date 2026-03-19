@@ -2,7 +2,6 @@ package br.com.boleiroOn.domain.arrematante.service;
 
 import br.com.boleiroOn.domain.arrematante.dto.ArrematanteRequestDto;
 import br.com.boleiroOn.domain.arrematante.entity.ArrematanteEntity;
-import br.com.boleiroOn.domain.arrematante.enums.ModalidadeArrematante;
 import br.com.boleiroOn.domain.arrematante.repository.ArrematanteRepository;
 import br.com.boleiroOn.domain.leilao.repository.LeilaoRepository;
 import br.com.boleiroOn.shared.exception.BusinessException;
@@ -23,19 +22,14 @@ public class ArrematanteService {
         var leilao = leilaoRepository.findById(data.leilaoId())
                 .orElseThrow(() -> new ResourceNotFoundException("Leilão não encontrado."));
 
-        if (data.modalidade() == ModalidadeArrematante.PRESENCIAL) {
-            if (data.placa() == null) {
-                throw new BusinessException("A placa é obrigatória para arrematantes presenciais.");
-            }
-            if (arrematanteRepository.existsByLeilaoIdAndPlaca(data.leilaoId(), data.placa())) {
-                throw new BusinessException("Esta placa já está em uso neste leilão.");
-            }
+        if (arrematanteRepository.existsByLeilaoIdAndPlaca(data.leilaoId(), data.placa())) {
+            throw new BusinessException("Esta placa já está em uso neste leilão.");
         }
 
         ArrematanteEntity arrematante = new ArrematanteEntity();
         arrematante.setLeilao(leilao);
         arrematante.setNome(data.nome());
-        arrematante.setModalidade(data.modalidade());
+        arrematante.setPlaca(data.placa());
         arrematante.setEmail(data.email());
         arrematante.setTelefone(data.telefone());
         arrematante.setCelular(data.celular());
@@ -47,12 +41,6 @@ public class ArrematanteService {
         arrematante.setCep(data.cep());
         arrematante.setCidade(data.cidade());
         arrematante.setUf(data.uf());
-
-        if (data.modalidade() == ModalidadeArrematante.ONLINE) {
-            arrematante.setPlaca(null);
-        } else {
-            arrematante.setPlaca(data.placa());
-        }
 
         return arrematanteRepository.save(arrematante);
     }

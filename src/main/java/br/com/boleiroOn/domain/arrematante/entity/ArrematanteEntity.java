@@ -1,6 +1,5 @@
     package br.com.boleiroOn.domain.arrematante.entity;
 
-    import br.com.boleiroOn.domain.arrematante.enums.ModalidadeArrematante;
     import br.com.boleiroOn.domain.leilao.entity.LeilaoEntity;
     import jakarta.persistence.*;
     import lombok.AllArgsConstructor;
@@ -25,10 +24,7 @@
         @Column(nullable = false)
         private String nome;
 
-        @Enumerated(EnumType.STRING)
         @Column(nullable = false)
-        private ModalidadeArrematante modalidade;
-
         private Integer placa;
 
         private String telefone;

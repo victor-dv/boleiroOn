@@ -1,13 +1,11 @@
 package br.com.boleiroOn.domain.arrematante.dto;
 
 import br.com.boleiroOn.domain.arrematante.entity.ArrematanteEntity;
-import br.com.boleiroOn.domain.arrematante.enums.ModalidadeArrematante;
 import br.com.boleiroOn.domain.leilao.dto.LeilaoDetalhadoResponseDto;
 
 public record ArrematanteDetalhadoResponseDto(
         Long id,
         String nome,
-        ModalidadeArrematante modalidade,
         Integer placa,
         String email,
         String urlFotoDocumento,
@@ -22,7 +20,7 @@ public record ArrematanteDetalhadoResponseDto(
 ) {
     public ArrematanteDetalhadoResponseDto(ArrematanteEntity entity) {
         this(
-                entity.getId(), entity.getNome(), entity.getModalidade(),
+                entity.getId(), entity.getNome(),
                 entity.getPlaca(), entity.getEmail(), entity.getUrlFotoDocumento(),
                 entity.getDocumento(), entity.getRg(), entity.getEndereco(),
                 entity.getCep(), entity.getCidade(), entity.getUf(),

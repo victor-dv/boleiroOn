@@ -1,6 +1,5 @@
 package br.com.boleiroOn.domain.arrematante.dto;
 
-import br.com.boleiroOn.domain.arrematante.enums.ModalidadeArrematante;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -11,10 +10,7 @@ public record ArrematanteRequestDto(
 
         @NotBlank
         String nome,
-
         @NotNull
-        ModalidadeArrematante modalidade,
-
         Integer placa,
 
         String telefone,
