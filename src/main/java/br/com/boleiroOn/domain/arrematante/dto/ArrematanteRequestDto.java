@@ -27,6 +27,13 @@ public record ArrematanteRequestDto(
         @Email
         String email,
 
-        String urlFotoDocumento
+        String urlFotoDocumento,
+
+        @NotBlank
+        String documento,
+        String rg,
+        String cep,
+        String cidade,
+        String uf
 ) {
 }

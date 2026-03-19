@@ -42,4 +42,10 @@
 
         @Column(name = "url_foto_documento", length = 500)
         private String urlFotoDocumento;
+
+        private String documento;
+        private String rg;
+        private String cep;
+        private String cidade;
+        private String uf;
     }
