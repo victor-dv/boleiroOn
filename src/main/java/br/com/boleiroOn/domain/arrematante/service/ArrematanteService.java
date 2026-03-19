@@ -42,6 +42,12 @@ public class ArrematanteService {
         arrematante.setEndereco(data.endereco());
         arrematante.setUrlFotoDocumento(data.urlFotoDocumento());
 
+        arrematante.setDocumento(data.documento());
+        arrematante.setRg(data.rg());
+        arrematante.setCep(data.cep());
+        arrematante.setCidade(data.cidade());
+        arrematante.setUf(data.uf());
+
         if (data.modalidade() == ModalidadeArrematante.ONLINE) {
             arrematante.setPlaca(null);
         } else {
