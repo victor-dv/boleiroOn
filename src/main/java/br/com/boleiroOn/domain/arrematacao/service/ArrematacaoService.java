@@ -1,6 +1,8 @@
 package br.com.boleiroOn.domain.arrematacao.service;
 
 import br.com.boleiroOn.domain.arrematacao.dto.ArrematacaoRequestDto;
+import br.com.boleiroOn.domain.arrematacao.dto.AssinaturaArrematacaoRequestDto;
+import br.com.boleiroOn.domain.arrematacao.dto.AutoArrematacaoResponseDto;
 import br.com.boleiroOn.domain.arrematacao.entity.ArrematacaoEntity;
 import br.com.boleiroOn.domain.arrematacao.enums.StatusArrematacao;
 import br.com.boleiroOn.domain.arrematacao.repository.ArrematacaoRepository;
@@ -47,5 +49,32 @@ public class ArrematacaoService {
         }
 
         return arrematacaoRepository.save(arrematacao);
+    }
+
+    @Transactional(readOnly = true)
+    public AutoArrematacaoResponseDto buscarAutoArrematacao(Long arrematacaoId) {
+        var arrematacao = arrematacaoRepository.findById(arrematacaoId)
+                .orElseThrow(() -> new ResourceNotFoundException("Arrematação não encontrada."));
+        if (arrematacao.isVendaOnline()){
+            throw new BusinessException("Esta arrematação é de venda online e não possui dados de arrematante presencial.");
+        }
+        return new AutoArrematacaoResponseDto(arrematacao);
+    }
+
+
+    @Transactional
+    public void assinarAutoArrematacao(Long arrematacaoId, AssinaturaArrematacaoRequestDto data){
+        var arrematacao = arrematacaoRepository.findById(arrematacaoId)
+                .orElseThrow(() -> new ResourceNotFoundException("Arrematação não encontrada."));
+
+        if (arrematacao.isVendaOnline()){
+            throw new BusinessException("Esta arrematação é de venda online e não pode ser assinada presencialmente.");
+        }
+        if (arrematacao.getUrlFotoAssinatura() != null){
+            throw new BusinessException("Esta arrematação já possui uma assinatura registrada.");
+        }
+        arrematacao.setUrlFotoAssinatura(data.urlFotoAssinatura());
+
+        arrematacaoRepository.save(arrematacao);
     }
 }

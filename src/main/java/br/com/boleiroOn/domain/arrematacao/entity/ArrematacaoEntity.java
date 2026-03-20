@@ -42,6 +42,9 @@ public class ArrematacaoEntity {
     @Column(name = "data_arrematacao", nullable = false)
     private LocalDateTime dataArrematacao = LocalDateTime.now();
 
+    @Column(name = "url_foto_assinatura")
+    private String urlFotoAssinatura;
+
     @PrePersist
     @PreUpdate
     public void calcularComissao() {

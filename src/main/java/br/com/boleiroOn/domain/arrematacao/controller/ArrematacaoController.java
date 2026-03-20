@@ -2,15 +2,14 @@ package br.com.boleiroOn.domain.arrematacao.controller;
 
 import br.com.boleiroOn.domain.arrematacao.dto.ArrematacaoRequestDto;
 import br.com.boleiroOn.domain.arrematacao.dto.ArrematacaoResponseDto;
+import br.com.boleiroOn.domain.arrematacao.dto.AssinaturaArrematacaoRequestDto;
+import br.com.boleiroOn.domain.arrematacao.dto.AutoArrematacaoResponseDto;
 import br.com.boleiroOn.domain.arrematacao.service.ArrematacaoService;
 import br.com.boleiroOn.shared.dto.ApiResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
@@ -27,6 +26,18 @@ public class ArrematacaoController {
 
         return ResponseEntity.created(uri)
                 .body(ApiResponse.success(responseDto, "Arrematação registrada com sucesso."));
+    }
+
+    @GetMapping("/{id}/auto")
+    public ResponseEntity<ApiResponse<AutoArrematacaoResponseDto>>buscarAuto(@PathVariable Long id){
+        var auto = arrematacaoService.buscarAutoArrematacao(id);
+        return ResponseEntity.ok(ApiResponse.success(auto, "Dados do arrematante presencial obtidos com sucesso."));
+    }
+
+    @PatchMapping("/{id}/assinatura")
+    public ResponseEntity<ApiResponse<Void>>assinar(@PathVariable Long id, @RequestBody @Valid AssinaturaArrematacaoRequestDto data) {
+        arrematacaoService.assinarAutoArrematacao(id, data);
+        return ResponseEntity.ok(ApiResponse.success(null, "Arrematação assinada com sucesso."));
     }
 
 
