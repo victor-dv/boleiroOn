@@ -42,6 +42,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/lotes/**").hasRole("ADMIN")
                         .requestMatchers("/api/arrematantes/**").authenticated()
                         .requestMatchers("/api/arrematacao/**").authenticated()
+                        .requestMatchers("/api/consulta/**").authenticated()
 
 
                         .anyRequest().authenticated()
