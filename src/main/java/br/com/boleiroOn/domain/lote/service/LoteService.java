@@ -92,4 +92,21 @@ public class LoteService {
         return lote;
     }
 
+    public LoteEntity update(Long loteId, LoteRequestDto data) {
+        var lote = loteRepository.findById(loteId).orElseThrow(() -> new ResourceNotFoundException("Lote não encontrado."));
+
+        if (data.numeroLote() != null && data.numeroLote() != lote.getNumeroLote()) {
+            if (loteRepository.existsByLeilaoIdAndNumeroLote(lote.getLeilao().getId(), data.numeroLote())) {
+                throw new BusinessException("Já existe um lote com este número neste leilão.");
+            }
+            lote.setNumeroLote(data.numeroLote());
+        }
+
+        if (data.descricao() != null) {
+            lote.setDescricao(data.descricao());
+        }
+
+        return loteRepository.save(lote);
+    }
+
 }
