@@ -85,4 +85,11 @@ public class LoteService {
         return loteRepository.findAll();
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
+    public LoteEntity delete(Long loteId) {
+        var lote = loteRepository.findById(loteId).orElseThrow(() -> new ResourceNotFoundException("Lote não encontrado."));
+        loteRepository.delete(lote);
+        return lote;
+    }
+
 }
