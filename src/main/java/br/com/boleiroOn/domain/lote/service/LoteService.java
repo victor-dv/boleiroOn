@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -82,9 +83,10 @@ public class LoteService {
     }
 
     public List<LoteEntity> getAll(Long leilaoId) {
-        return loteRepository.findAll();
+        var leilao = leilaoRepository.findById(leilaoId)
+                .orElseThrow(() -> new ResourceNotFoundException("Leilão não encontrado."));
+        return loteRepository.findByLeilaoId(leilaoId);
     }
-
     @PreAuthorize("hasRole('ADMIN')")
     public LoteEntity delete(Long loteId) {
         var lote = loteRepository.findById(loteId).orElseThrow(() -> new ResourceNotFoundException("Lote não encontrado."));
