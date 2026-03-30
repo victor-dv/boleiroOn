@@ -29,4 +29,5 @@ public interface ArrematacaoRepository extends JpaRepository<ArrematacaoEntity, 
     ORDER BY a.id DESC
 """)
     List<ArrematacaoFeedDto> buscarUltimasArrematacoesDoLeilao(Long leilaoId);
-}
+
+    boolean existsByArrematanteId(Long arrematanteId);}
