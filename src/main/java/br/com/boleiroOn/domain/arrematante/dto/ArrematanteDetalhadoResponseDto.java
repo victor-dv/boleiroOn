@@ -10,6 +10,8 @@ public record ArrematanteDetalhadoResponseDto(
         String email,
         String urlFotoDocumento,
         String documento,
+        String telefone,
+        String celular,
         String rg,
         String endereco,
         String cep,
@@ -22,7 +24,7 @@ public record ArrematanteDetalhadoResponseDto(
         this(
                 entity.getId(), entity.getNome(),
                 entity.getPlaca(), entity.getEmail(), entity.getUrlFotoDocumento(),
-                entity.getDocumento(), entity.getRg(), entity.getEndereco(),
+                entity.getDocumento(),entity.getTelefone(), entity.getCelular(), entity.getRg(), entity.getEndereco(),
                 entity.getCep(), entity.getCidade(), entity.getUf(),
 
                 new LeilaoDetalhadoResponseDto(entity.getLeilao())
