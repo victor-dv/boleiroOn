@@ -45,5 +45,11 @@ public class ArrematacaoController {
         return ResponseEntity.ok(ApiResponse.success(feed, "Feed de arrematações atualizado."));
     }
 
+    @GetMapping("feed/autos-nulos/{leilaoId}")
+    public ResponseEntity<ApiResponse<List<ArrematacaoFeedDto>>> buscarFeedAutosNulos(@PathVariable Long leilaoId) {
+        List<ArrematacaoFeedDto> feed = arrematacaoService.buscarAutoSemAssinatura(leilaoId);
+        return ResponseEntity.ok(ApiResponse.success(feed, "Feed de arrematações com autos nulos atualizado."));
+    }
+
 
 }

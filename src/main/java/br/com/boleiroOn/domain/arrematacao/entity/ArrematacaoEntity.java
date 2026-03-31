@@ -1,6 +1,6 @@
 package br.com.boleiroOn.domain.arrematacao.entity;
 
-import br.com.boleiroOn.domain.arrematacao.enums.StatusArrematacao;
+import br.com.boleiroOn.domain.arrematacao.enums.StatusPagamentoArrematacao;
 import br.com.boleiroOn.domain.arrematante.entity.ArrematanteEntity;
 import br.com.boleiroOn.domain.lote.entity.LoteEntity;
 import jakarta.persistence.*;
@@ -37,7 +37,7 @@ public class ArrematacaoEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private StatusArrematacao status = StatusArrematacao.PENDENTE_PAGAMENTO;
+    private StatusPagamentoArrematacao status = StatusPagamentoArrematacao.PENDENTE_PAGAMENTO;
 
     @Column(name = "data_arrematacao", nullable = false)
     private LocalDateTime dataArrematacao = LocalDateTime.now();

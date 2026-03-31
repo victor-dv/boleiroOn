@@ -5,7 +5,7 @@ import br.com.boleiroOn.domain.arrematacao.dto.ArrematacaoRequestDto;
 import br.com.boleiroOn.domain.arrematacao.dto.AssinaturaArrematacaoRequestDto;
 import br.com.boleiroOn.domain.arrematacao.dto.AutoArrematacaoResponseDto;
 import br.com.boleiroOn.domain.arrematacao.entity.ArrematacaoEntity;
-import br.com.boleiroOn.domain.arrematacao.enums.StatusArrematacao;
+import br.com.boleiroOn.domain.arrematacao.enums.StatusPagamentoArrematacao;
 import br.com.boleiroOn.domain.arrematacao.repository.ArrematacaoRepository;
 import br.com.boleiroOn.domain.arrematante.repository.ArrematanteRepository;
 import br.com.boleiroOn.domain.lote.repository.LoteRepository;
@@ -29,7 +29,7 @@ public class ArrematacaoService {
         var lote = loteRepository.findByLeilaoIdAndNumeroLote(data.leilaoId(), data.numeroLote())
                 .orElseThrow(() -> new ResourceNotFoundException("Lote não encontrado para o leilão e número de lote informados."));
 
-        if (arrematacaoRepository.existsByLoteIdAndStatusNot(lote.getId(), StatusArrematacao.CANCELADO)) {
+        if (arrematacaoRepository.existsByLoteIdAndStatusNot(lote.getId(), StatusPagamentoArrematacao.CANCELADO)) {
             throw new BusinessException("Este lote já possui uma arrematação ativa.");
         }
 
@@ -37,7 +37,7 @@ public class ArrematacaoService {
         arrematacao.setLote(lote);
         arrematacao.setValorArrematacao(data.valorArrematacao());
         arrematacao.setVendaOnline(data.vendaOnline());
-        arrematacao.setStatus(StatusArrematacao.PENDENTE_PAGAMENTO);
+        arrematacao.setStatus(StatusPagamentoArrematacao.PENDENTE_PAGAMENTO);
 
         if (data.vendaOnline()) {
             arrematacao.setArrematante(null);
@@ -84,4 +84,12 @@ public class ArrematacaoService {
     public List<ArrematacaoFeedDto> buscarFeedArrematacoes(Long leilaoId) {
         return arrematacaoRepository.buscarUltimasArrematacoesDoLeilao(leilaoId);
     }
+
+    public List<ArrematacaoFeedDto> buscarAutoSemAssinatura(Long leilaoId) {
+        var arrematacoes = arrematacaoRepository.buscarUltimasArrematacoesDoLeilao(leilaoId);
+        return arrematacoes.stream()
+                .filter(a -> a.urlFotoAssinatura() == null && !a.vendaOnline())
+                .toList();
+    }
+
 }
