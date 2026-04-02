@@ -45,6 +45,9 @@ public class ArrematacaoEntity {
     @Column(name = "url_foto_assinatura")
     private String urlFotoAssinatura;
 
+    @Column(name = "url_auto_pdf")
+    private String urlAutoPdf;
+
     @PrePersist
     @PreUpdate
     public void calcularComissao() {

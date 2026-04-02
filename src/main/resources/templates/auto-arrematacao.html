@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Auto de Arrematação</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; color: #333; }
+        .cabecalho { text-align: center; border-bottom: 2px solid #000; padding-bottom: 10px; margin-bottom: 20px; }
+        .detalhes-lote { margin-bottom: 20px; padding: 15px; background-color: #f9f9f9; border: 1px solid #ddd; }
+        .assinatura-box { text-align: center; margin-top: 50px; }
+        .assinatura-img { max-width: 300px; max-height: 150px; border: 1px dashed #ccc; }
+    </style>
+</head>
+<body>
+
+<div class="cabecalho">
+    <h2> BOLETO DE LEILÃO</h2>
+    <p>Leilão Oficial - Data: <span th:text="${dataLeilao}">01/01/2026</span></p>
+</div>
+
+<div class="detalhes-lote">
+    <h3>Dados da Arrematação</h3>
+    <p><strong>Lote:</strong> <span th:text="${numeroLote}">001</span></p>
+    <p><strong>Valor da Arrematação:</strong> R$ <span th:text="${valorArremate}">0,00</span></p>
+    <p><strong>Comissão do Leiloeiro (5%):</strong> R$ <span th:text="${valorComissao}">0,00</span></p>
+</div>
+
+<div class="detalhes-arrematante">
+    <h3>Dados do Arrematante</h3>
+    <p><strong>Nome:</strong> <span th:text="${nomeArrematante}">Fulano de Tal</span></p>
+    <p><strong>Placa (Presencial):</strong> <span th:text="${placa}">123</span></p>
+    <p><strong>Telefone:</strong> <span th:text="${telefone}"></span></p>
+</div>
+
+<div class="assinatura-box">
+    <p>Assinatura Eletrônica (Registro Fotográfico):</p>
+    <img class="assinatura-img" th:src="'data:image/jpeg;base64,' + ${fotoAssinaturaBase64}" alt="Assinatura" />
+    <p>____________________________________________________</p>
+    <p th:text="${nomeArrematante}">Fulano de Tal</p>
+</div>
+
+</body>
+</html>
