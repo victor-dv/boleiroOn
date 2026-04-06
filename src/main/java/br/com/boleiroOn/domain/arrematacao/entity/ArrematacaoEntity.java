@@ -29,6 +29,9 @@ public class ArrematacaoEntity {
     @Column(name = "venda_online", nullable = false)
     private boolean vendaOnline = false;
 
+    @Column(name = "venda_condicional", nullable = false)
+    private boolean vendaCondicional = false;
+
     @Column(name = "valor_arrematacao", nullable = false)
     private BigDecimal valorArrematacao;
 

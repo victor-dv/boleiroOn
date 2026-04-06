@@ -39,6 +39,7 @@ public class ArrematacaoService {
         arrematacao.setLote(lote);
         arrematacao.setValorArrematacao(data.valorArrematacao());
         arrematacao.setVendaOnline(data.vendaOnline());
+        arrematacao.setVendaCondicional(data.vendaCondicional());
         arrematacao.setStatus(StatusPagamentoArrematacao.PENDENTE_PAGAMENTO);
 
         if (data.vendaOnline()) {

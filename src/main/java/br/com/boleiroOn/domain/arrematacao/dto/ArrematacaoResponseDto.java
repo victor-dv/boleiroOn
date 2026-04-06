@@ -14,6 +14,7 @@ public record ArrematacaoResponseDto(
         String nomeArrematante,
         Integer placaArrematante,
         boolean vendaOnline,
+        boolean vendaCondicional,
         BigDecimal valorArrematacao,
         BigDecimal valorComissao,
         StatusPagamentoArrematacao status,
@@ -30,6 +31,7 @@ public record ArrematacaoResponseDto(
                 entity.isVendaOnline() ? null : entity.getArrematante().getPlaca(),
 
                 entity.isVendaOnline(),
+                entity.isVendaCondicional(),
                 entity.getValorArrematacao(),
                 entity.getValorComissao(),
                 entity.getStatus(),
