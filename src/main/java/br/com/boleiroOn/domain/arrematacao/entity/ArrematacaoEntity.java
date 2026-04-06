@@ -48,6 +48,9 @@ public class ArrematacaoEntity {
     @Column(name = "url_foto_assinatura")
     private String urlFotoAssinatura;
 
+    @Column (name = "assinatura_base64", length = 100000)
+    private String assinaturaBase64;
+
     @Column(name = "url_auto_pdf")
     private String urlAutoPdf;
 

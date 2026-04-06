@@ -1,7 +1,5 @@
 package br.com.boleiroOn.domain.arrematacao.service;
 
-
-import br.com.boleiroOn.domain.arrematacao.dto.ArrematacaoRequestDto;
 import br.com.boleiroOn.domain.arrematacao.entity.ArrematacaoEntity;
 import com.openhtmltopdf.pdfboxout.PdfRendererBuilder;
 import lombok.RequiredArgsConstructor;
@@ -20,49 +18,73 @@ public class PdfGeradorService {
 
     private final SpringTemplateEngine templateEngine;
 
-    public byte[] gerarAutoArrematacaoPdf(ArrematacaoEntity arrematacao, String fotoBase64Completa) throws Exception {
+    public byte[] gerarAutoArrematacaoPdf(ArrematacaoEntity arrematacao, String assinaturaBase64) throws Exception {
 
         Context context = new Context();
 
-        // 1. Formatadores para deixar o PDF com cara de documento oficial
         DateTimeFormatter formatadorData = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
         NumberFormat formatadorMoeda = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
 
-        // 2. Dados da Arrematação
         String dataFormatada = arrematacao.getDataArrematacao() != null
                 ? arrematacao.getDataArrematacao().format(formatadorData)
                 : "";
-        context.setVariable("dataLeilao", dataFormatada);
-        context.setVariable("valorArremate", formatadorMoeda.format(arrematacao.getValorArrematacao()));
+        context.setVariable("dataArrematacao", dataFormatada);
 
-        // Como você usa @PrePersist/@PreUpdate para calcular a comissão, ela já deve estar na entidade
+        context.setVariable("condicional", arrematacao.isVendaCondicional() ? "Sim" : "Não");
+
+        context.setVariable("valorArremate", arrematacao.getValorArrematacao() != null
+                ? formatadorMoeda.format(arrematacao.getValorArrematacao())
+                : "R$ 0,00");
+
         context.setVariable("valorComissao", arrematacao.getValorComissao() != null
                 ? formatadorMoeda.format(arrematacao.getValorComissao())
                 : "R$ 0,00");
 
-        // 3. Dados do Lote (Navegando pelo relacionamento)
         if (arrematacao.getLote() != null) {
-            // Ajuste o '.getId()' ou '.getNumero()' de acordo com o nome do atributo na sua LoteEntity
             context.setVariable("numeroLote", arrematacao.getLote().getId());
         }
 
-        // 4. Dados do Arrematante (Navegando pelo relacionamento)
         if (arrematacao.getArrematante() != null) {
-            // Ajuste os getters de acordo com os atributos reais da sua ArrematanteEntity
-            context.setVariable("nomeArrematante", arrematacao.getArrematante().getNome());
-            context.setVariable("placa", arrematacao.getArrematante().getPlaca());
-            context.setVariable("telefone", arrematacao.getArrematante().getTelefone());
+            var arrematante = arrematacao.getArrematante();
+
+            if (arrematante.getLeilao() != null) {
+                context.setVariable("nomeLeilao", arrematante.getLeilao().getNome());
+            } else {
+                context.setVariable("nomeLeilao", "Não Informado");
+            }
+
+            context.setVariable("nomeArrematante", arrematante.getNome());
+            context.setVariable("placa", arrematante.getPlaca());
+            context.setVariable("telefone", arrematante.getTelefone());
+            context.setVariable("celular", arrematante.getCelular());
+            context.setVariable("email", arrematante.getEmail());
+
+            String enderecoFormatado = String.format("%s - %s/%s, CEP: %s",
+                    arrematante.getEndereco() != null ? arrematante.getEndereco() : "",
+                    arrematante.getCidade() != null ? arrematante.getCidade() : "",
+                    arrematante.getUf() != null ? arrematante.getUf() : "",
+                    arrematante.getCep() != null ? arrematante.getCep() : "");
+
+            if (enderecoFormatado.trim().equals("- /, CEP:")) {
+                enderecoFormatado = "Não Informado";
+            }
+
+            context.setVariable("endereco", enderecoFormatado);
+
         } else {
+            context.setVariable("nomeLeilao", "Não Informado");
             context.setVariable("nomeArrematante", "Não Informado");
+            context.setVariable("placa", "-");
+            context.setVariable("telefone", "-");
+            context.setVariable("celular", "-");
+            context.setVariable("email", "-");
+            context.setVariable("endereco", "Não Informado");
         }
 
-        // 5. A foto em Base64 para a assinatura
-        context.setVariable("fotoAssinaturaBase64", fotoBase64Completa);
+        context.setVariable("assinaturaBase64", assinaturaBase64);
 
-        // Processa o HTML
         String htmlProcessado = templateEngine.process("auto-arrematacao", context);
 
-        // Gera o PDF
         try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
             PdfRendererBuilder builder = new PdfRendererBuilder();
             builder.useFastMode();
