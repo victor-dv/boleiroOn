@@ -35,7 +35,7 @@ public class EnviarEmailAutoService {
             <html lang="pt-BR">
             <head>
               <meta charset="UTF-8">
-              <title>Seu Auto de Arrematação</title>
+              <title>Boleto de Arrematação</title>
               <style>
                 body { font-family: Arial, sans-serif; background-color: #f4f4f5; color: #09090b; margin: 0; padding: 20px; }
                 .container { max-width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 8px; overflow: hidden; }
@@ -48,10 +48,10 @@ public class EnviarEmailAutoService {
             </head>
             <body>
               <div class="container">
-                <div class="header"><h2>Auto de Arrematação Disponível</h2></div>
+                <div class="header"><h2>Boleto de Arrematação Disponível</h2></div>
                 <div class="content">
                   <p>Olá, <strong>%s</strong>,</p>
-                  <p>Parabéns pela sua arrematação! O seu auto de arrematação presencial foi devidamente assinado, registrado e o documento já está disponível para acesso.</p>
+                  <p>Parabéns pela sua arrematação! O seu boleto de arrematação presencial foi devidamente assinado, registrado e o documento já está disponível para acesso.</p>
             
                   <div class="highlight-box">
                     <p><strong>Leilão:</strong> %s</p>
