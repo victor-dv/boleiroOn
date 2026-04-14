@@ -1,5 +1,6 @@
 package br.com.boleiroOn.domain.leilao.service;
 
+import br.com.boleiroOn.config.infra.aws.AWSService;
 import br.com.boleiroOn.domain.leilao.dto.LeilaoRequestDto;
 import br.com.boleiroOn.domain.leilao.dto.LeilaoResponseDto;
 import br.com.boleiroOn.domain.leilao.entity.LeilaoEntity;
@@ -31,6 +32,24 @@ public class LeilaoService {
         leilao.setLeiloeiroMatricula(data.leiloeiroMatricula());
         leilao.setLeiloeiroDocumento(data.leiloeiroDocumento());
         leilao.setCidadeUfPagamento(data.cidadeUfPagamento());
+
+        return leilaoRepository.save(leilao);
+    }
+
+    public LeilaoEntity update(Long leilaoId, LeilaoRequestDto dto) {
+        var leilao = leilaoRepository.findById(leilaoId)
+                .orElseThrow(() -> new RuntimeException("Leilão não encontrado"));
+        leilao.setNome(dto.nome() != null ? dto.nome() : leilao.getNome());
+        leilao.setData(dto.data() != null ? dto.data() : leilao.getData());
+        leilao.setImageUrl(dto.imageUrl() != null ? dto.imageUrl() : leilao.getImageUrl());
+        leilao.setComitenteNome(dto.comitenteNome() != null ? dto.comitenteNome() : leilao.getComitenteNome());
+        leilao.setComitenteDocumento(dto.comitenteDocumento() != null ? dto.comitenteDocumento() : leilao.getComitenteDocumento());
+        leilao.setEdital(dto.edital() != null ? dto.edital() : leilao.getEdital());
+        leilao.setProcessoAdministrativo(dto.processoAdministrativo() != null ? dto.processoAdministrativo() : leilao.getProcessoAdministrativo());
+        leilao.setLeiloeiroNome(dto.leiloeiroNome() != null ? dto.leiloeiroNome() : leilao.getLeiloeiroNome());
+        leilao.setLeiloeiroMatricula(dto.leiloeiroMatricula() != null ? dto.leiloeiroMatricula() : leilao.getLeiloeiroMatricula());
+        leilao.setLeiloeiroDocumento(dto.leiloeiroDocumento() != null ? dto.leiloeiroDocumento() : leilao.getLeiloeiroDocumento());
+        leilao.setCidadeUfPagamento(dto.cidadeUfPagamento() != null ? dto.cidadeUfPagamento() : leilao.getCidadeUfPagamento());
 
         return leilaoRepository.save(leilao);
     }
