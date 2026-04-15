@@ -8,6 +8,7 @@ public record RelatorioFinanceiroDto(
     Long arrematacaoId,
     String arrematanteNome,
     String loteDescricao,
+    Integer numeroLote,
     BigDecimal valorArrematacao,
     BigDecimal valorComissao,
     StatusPagamentoArrematacao status,

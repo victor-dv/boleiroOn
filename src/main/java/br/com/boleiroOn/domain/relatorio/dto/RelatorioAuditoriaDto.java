@@ -6,6 +6,7 @@ public record RelatorioAuditoriaDto(
     Long id,
     String arrematanteNome,
     String loteDescricao,
+    Integer numeroLote,
     String tipoDocumento,
     String statusEmail,
     LocalDateTime dataEnvio,
