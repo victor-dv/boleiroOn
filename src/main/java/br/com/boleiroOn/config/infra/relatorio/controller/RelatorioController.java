@@ -1,9 +1,9 @@
-package br.com.boleiroOn.domain.relatorio.controller;
+package br.com.boleiroOn.config.infra.relatorio.controller;
 
-import br.com.boleiroOn.domain.relatorio.dto.RelatorioAuditoriaDto;
-import br.com.boleiroOn.domain.relatorio.dto.RelatorioFinanceiroDto;
-import br.com.boleiroOn.domain.relatorio.dto.RelatorioResumoDto;
-import br.com.boleiroOn.domain.relatorio.service.RelatorioService;
+import br.com.boleiroOn.config.infra.relatorio.dto.RelatorioAuditoriaDto;
+import br.com.boleiroOn.config.infra.relatorio.dto.RelatorioFinanceiroDto;
+import br.com.boleiroOn.config.infra.relatorio.dto.RelatorioResumoDto;
+import br.com.boleiroOn.config.infra.relatorio.service.RelatorioService;
 import br.com.boleiroOn.shared.dto.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

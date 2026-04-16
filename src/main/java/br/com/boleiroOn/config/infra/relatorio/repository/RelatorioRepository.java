@@ -1,9 +1,9 @@
-package br.com.boleiroOn.domain.relatorio.repository;
+package br.com.boleiroOn.config.infra.relatorio.repository;
 
-import br.com.boleiroOn.domain.relatorio.dto.RelatorioAuditoriaDto;
-import br.com.boleiroOn.domain.relatorio.dto.RelatorioFinanceiroDto;
-import br.com.boleiroOn.domain.relatorio.dto.RelatorioResumoDto;
-import br.com.boleiroOn.domain.relatorio.entity.DocumentoAuditoriaEntity;
+import br.com.boleiroOn.config.infra.relatorio.dto.RelatorioAuditoriaDto;
+import br.com.boleiroOn.config.infra.relatorio.dto.RelatorioFinanceiroDto;
+import br.com.boleiroOn.config.infra.relatorio.dto.RelatorioResumoDto;
+import br.com.boleiroOn.config.infra.relatorio.entity.DocumentoAuditoriaEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

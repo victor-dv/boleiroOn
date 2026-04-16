@@ -1,9 +1,9 @@
-package br.com.boleiroOn.domain.relatorio.service;
+package br.com.boleiroOn.config.infra.relatorio.service;
 
-import br.com.boleiroOn.domain.relatorio.dto.RelatorioAuditoriaDto;
-import br.com.boleiroOn.domain.relatorio.dto.RelatorioFinanceiroDto;
-import br.com.boleiroOn.domain.relatorio.dto.RelatorioResumoDto;
-import br.com.boleiroOn.domain.relatorio.repository.RelatorioRepository;
+import br.com.boleiroOn.config.infra.relatorio.dto.RelatorioAuditoriaDto;
+import br.com.boleiroOn.config.infra.relatorio.dto.RelatorioFinanceiroDto;
+import br.com.boleiroOn.config.infra.relatorio.dto.RelatorioResumoDto;
+import br.com.boleiroOn.config.infra.relatorio.repository.RelatorioRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
