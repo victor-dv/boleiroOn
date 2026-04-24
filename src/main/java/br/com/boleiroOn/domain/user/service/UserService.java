@@ -2,6 +2,7 @@ package br.com.boleiroOn.domain.user.service;
 
 import br.com.boleiroOn.config.infra.configs.JwtToken;
 import br.com.boleiroOn.config.infra.email.service.EnviarDefinicaoSenhaService;
+import br.com.boleiroOn.config.infra.email.service.EnviarRecuperacaoSenhaService;
 import br.com.boleiroOn.domain.user.dto.*;
 import br.com.boleiroOn.domain.user.entity.UserEntity;
 import br.com.boleiroOn.domain.user.repository.UserRepository;
@@ -23,6 +24,7 @@ public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final EnviarDefinicaoSenhaService enviarDefinicaoSenhaService;
+    private final EnviarRecuperacaoSenhaService enviarRecuperacaoSenhaService;
     private final JwtToken jwtToken;
 
     @Transactional
@@ -52,13 +54,28 @@ public class UserService {
 
         return userRepository.save(user);
     }
+
+    @Transactional
+    public void forgotPassword(ForgotPasswordRequestDto dto) {
+        UserEntity user = userRepository.findByEmail(dto.email())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "E-mail não encontrado."));
+
+        String token = UUID.randomUUID().toString();
+        user.setCreationToken(token);
+        user.setTokenExpiration(LocalDateTime.now().plusHours(2));
+
+        userRepository.save(user);
+
+        enviarRecuperacaoSenhaService.enviarEmailRecuperacao(user.getName(), user.getEmail(), token);
+    }
+
     @Transactional
     public void definiInitialPassword(DefinePasswordDto dto) {
         UserEntity user = userRepository.findByCreationToken(dto.token())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Token inválido ou não encontrado."));
 
         if (user.getTokenExpiration().isBefore(LocalDateTime.now())) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Este link de convite expirou. Solicite um novo reenvio.");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Este link expirou. Solicite um novo reenvio.");
         }
 
         user.setPassword(passwordEncoder.encode(dto.newPassword()));

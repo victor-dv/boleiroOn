@@ -5,26 +5,26 @@
     <title>Auto de Arrematação</title>
     <style>
         @page {
-            margin: 1cm 1.5cm; /* Margens seguras e otimizadas para 1 página */
+            margin: 0.8cm 1.2cm; /* Margens reduzidas para ganhar espaço */
         }
 
         body {
             font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             margin: 0;
             color: #2c3e50;
-            font-size: 11.5px;
-            line-height: 1.4;
+            font-size: 10.5px; /* Reduzido de 11.5px */
+            line-height: 1.3; /* Reduzido de 1.4 */
         }
 
         .cabecalho {
             text-align: center;
             border-bottom: 2px solid #2c3e50;
-            padding-bottom: 10px;
-            margin-bottom: 15px;
+            padding-bottom: 5px; /* Reduzido de 10px */
+            margin-bottom: 10px; /* Reduzido de 15px */
         }
         .cabecalho h2 {
-            margin: 0 0 3px 0;
-            font-size: 18px;
+            margin: 0 0 2px 0;
+            font-size: 16px; /* Reduzido de 18px */
             text-transform: uppercase;
             letter-spacing: 1px;
             color: #1a252f;
@@ -32,7 +32,7 @@
         .cabecalho-info {
             display: table;
             width: 100%;
-            font-size: 12px;
+            font-size: 11px; /* Reduzido de 12px */
         }
         .cabecalho-info-left { display: table-cell; text-align: left; }
         .cabecalho-info-right { display: table-cell; text-align: right; }
@@ -43,103 +43,96 @@
             border: 1px solid #ecf0f1;
             border-left: 4px solid #3498db;
             border-radius: 4px;
-            padding: 10px 15px;
-            margin-bottom: 12px;
+            padding: 8px 12px; /* Reduzido de 10px 15px */
+            margin-bottom: 8px; /* Reduzido de 10px */
         }
         .secao-info {
             background-color: #fffaf0;
             border: 1px solid #faebcc;
-            border-left: 4px solid #f39c12; /* Destaque Laranja/Dourado */
+            border-left: 4px solid #f39c12;
             border-radius: 4px;
-            padding: 10px 15px;
-            margin-bottom: 12px;
+            padding: 8px 12px; /* Reduzido de 10px 15px */
+            margin-bottom: 8px; /* Reduzido de 10px */
             color: #8a6d3b;
         }
 
         .secao-legal {
             background-color: #fdfdfd;
             border: 1px solid #e0e0e0;
-            border-left: 4px solid #7f8c8d; /* Destaque Cinza */
+            border-left: 4px solid #7f8c8d;
             border-radius: 4px;
-            padding: 10px 15px;
-            margin-bottom: 12px;
+            padding: 8px 12px; /* Reduzido de 10px 15px */
+            margin-bottom: 8px; /* Reduzido de 10px */
         }
 
         h3 {
             margin-top: 0;
             border-bottom: 1px solid #e2e2e2;
-            padding-bottom: 4px;
+            padding-bottom: 3px;
             color: #2c3e50;
-            font-size: 13px;
+            font-size: 12px; /* Reduzido de 13px */
             text-transform: uppercase;
-            margin-bottom: 8px;
+            margin-bottom: 6px; /* Reduzido de 8px */
         }
 
-        p { margin: 3px 0; }
+        p { margin: 2px 0; } /* Reduzido de 3px */
 
         .container-validacao {
             display: table;
             width: 100%;
-            margin-top: 25px;
-            page-break-inside: avoid; /* Evita que quebre no meio entre duas páginas */
+            margin-top: 15px; /* Reduzido de 25px */
+            page-break-inside: avoid;
         }
         .coluna-validacao {
             display: table-cell;
             width: 50%;
             text-align: center;
-            vertical-align: top; /* Adicionado: Força os dois lados a começarem na exata mesma altura no topo */
-            padding: 10px;
+            vertical-align: top;
+            padding: 5px; /* Reduzido de 10px */
         }
         .foto-seguranca {
-            max-width: 140px;
-            max-height: 120px;
+            max-width: 120px; /* Reduzido de 140px */
+            max-height: 100px; /* Reduzido de 120px */
             border: 2px solid #ecf0f1;
             border-radius: 8px;
-            display: inline-block; /* Alterado para alinhar perfeitamente no centro do PDF */
-            margin-bottom: 10px;
+            display: inline-block;
+            margin-bottom: 5px;
         }
         .img-assinatura {
-            max-width: 200px;
-            max-height: 80px;
-            display: inline-block; /* Alterado para alinhar perfeitamente no centro do PDF */
+            max-width: 180px; /* Reduzido de 200px */
+            max-height: 60px; /* Reduzido de 80px */
+            display: inline-block;
             margin-bottom: 5px;
         }
 
         /* --- SISTEMA DE GRID (Dados) --- */
         .info-grid { display: table; width: 100%; }
         .info-row { display: table-row; }
-        .info-cell { display: table; width: 50%; }
+        .info-cell { display: table-cell; width: 50%; } /* Corrigido para table-cell */
         .info-cell strong { color: #34495e; }
 
         /* --- LISTA DE TERMOS --- */
         .termos-lista p {
-            margin: 4px 0;
+            margin: 2px 0; /* Reduzido de 4px */
             text-align: justify;
-            font-size: 11px;
+            font-size: 10px; /* Reduzido de 11px */
         }
         .termos-lista strong { color: #2c3e50; }
 
         /* --- ASSINATURA --- */
         .assinatura-box {
             text-align: center;
-            margin-top: 25px;
+            margin-top: 15px;
             page-break-inside: avoid;
         }
-        .assinatura-img {
-            max-width: 220px;
-            max-height: 80px;
-            display: block;
-            margin: 0 auto;
-        }
-        .espaco-assinatura { height: 40px; }
         .linha-assinatura {
             border-top: 1px solid #2c3e50;
-            width: 200px; /* Reduzido de 300px: Evita estourar o limite da coluna de 50% */
+            width: 180px; /* Reduzido de 200px */
             margin: 0 auto;
-            padding-top: 5px;
+            padding-top: 3px;
         }
-        .linha-assinatura p.nome { margin: 0; font-weight: bold; font-size: 12px; color: #2c3e50; text-transform: uppercase; }
-        .linha-assinatura p.cargo { margin: 0; font-size: 10px; color: #7f8c8d; }
+        .linha-assinatura p.nome { margin: 0; font-weight: bold; font-size: 11px; color: #2c3e50; text-transform: uppercase; }
+        .linha-assinatura p.cargo { margin: 0; font-size: 9px; color: #7f8c8d; }
     </style>
 </head>
 <body>
@@ -156,7 +149,7 @@
     <h3>Dados da Arrematação</h3>
     <div class="info-grid">
         <div class="info-row">
-            <div class="info-cell"><strong>Lote:</strong> <span th:text="${numeroLote}">001</span></div>
+            <div class="info-cell"><strong>Lote:</strong> <span th:text="${numeroLote}">00</span></div>
             <div class="info-cell"><strong>Condicional:</strong> <span th:text="${condicional}">Não</span></div>
         </div>
         <div class="info-row">
@@ -175,20 +168,24 @@
 
 <div class="secao">
     <h3>Dados do Arrematante</h3>
-    <div class="info-grid">
+    <div class="info-grid" style="font-size: 11.5px;">
         <div class="info-row">
-            <div class="info-cell"><strong>Nome:</strong> <span th:text="${nomeArrematante}">Fulano</span></div>
-            <div class="info-cell"><strong>Placa:</strong> <span th:text="${placa}">ABC-1234</span></div>
+            <div class="info-cell" style="width: 100%; padding-bottom: 2px;"><strong>Nome:</strong> <span th:text="${nomeArrematante}">Fulano</span></div>
         </div>
         <div class="info-row">
-            <div class="info-cell"><strong>Telefone:</strong> <span th:text="${telefone}">(00) 0000-0000</span></div>
-            <div class="info-cell"><strong>Celular:</strong> <span th:text="${celular}">(00) 90000-0000</span></div>
+            <div class="info-cell" style="width: 100%; padding-bottom: 2px;"><strong>Placa:</strong> <span th:text="${placa}">ABC-1234</span></div>
         </div>
         <div class="info-row">
-            <div class="info-cell" style="width: 100%;"><strong>E-mail:</strong> <span th:text="${email}">email@exemplo.com</span></div>
+            <div class="info-cell" style="width: 100%; padding-bottom: 2px;"><strong>Telefone:</strong> <span th:text="${telefone}">(00) 0000-0000</span></div>
         </div>
         <div class="info-row">
-            <div class="info-cell" style="width: 100%;"><strong>Endereço:</strong> <span th:text="${endereco}">Rua Exemplo, 123</span></div>
+            <div class="info-cell" style="width: 100%; padding-bottom: 2px;"><strong>Celular:</strong> <span th:text="${celular}">(00) 90000-0000</span></div>
+        </div>
+        <div class="info-row">
+            <div class="info-cell" style="width: 100%; padding-bottom: 2px;"><strong>E-mail:</strong> <span th:text="${email}">email@exemplo.com</span></div>
+        </div>
+        <div class="info-row">
+            <div class="info-cell" style="width: 100%; padding-bottom: 2px;"><strong>Endereço:</strong> <span th:text="${endereco}">Rua Exemplo, 123</span></div>
         </div>
     </div>
 </div>

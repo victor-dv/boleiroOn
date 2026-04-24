@@ -8,8 +8,8 @@ import br.com.boleiroOn.domain.arrematacao.enums.StatusPagamentoArrematacao;
 import br.com.boleiroOn.domain.arrematacao.repository.ArrematacaoRepository;
 import br.com.boleiroOn.domain.arrematante.repository.ArrematanteRepository;
 import br.com.boleiroOn.domain.lote.repository.LoteRepository;
-import br.com.boleiroOn.domain.relatorio.entity.DocumentoAuditoriaEntity;
-import br.com.boleiroOn.domain.relatorio.repository.RelatorioRepository;
+import br.com.boleiroOn.config.infra.relatorio.entity.DocumentoAuditoriaEntity;
+import br.com.boleiroOn.config.infra.relatorio.repository.RelatorioRepository;
 import br.com.boleiroOn.shared.exception.BusinessException;
 import br.com.boleiroOn.shared.exception.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -150,6 +150,26 @@ public class ArrematacaoService {
         if (arrematacao.getValorArrematacao().compareTo(BigDecimal.ZERO) <= 0) {
             throw new BusinessException("O valor da arrematação deve ser positivo.");
         }
+
+        return arrematacaoRepository.save(arrematacao);
+    }
+
+    @Transactional
+    public ArrematacaoEntity mudarPlacaArrematante(Long arrematacaoId, ArrematacaoUpdatePlacaDto data) {
+        var arrematacao = arrematacaoRepository.findById(arrematacaoId)
+                .orElseThrow(() -> new ResourceNotFoundException("Arrematação não encontrada."));
+
+        if (arrematacao.isVendaOnline()) {
+            throw new BusinessException("Esta arrematação é de venda online e não possui placa de arrematante presencial.");
+        }
+
+        var novoArrematante = arrematanteRepository.findByLeilaoIdAndPlaca(arrematacao.getLote().getLeilao().getId(), data.novaPlaca())
+                .orElseThrow(() -> new ResourceNotFoundException("Nenhum arrematante presencial encontrado com a placa " + data.novaPlaca() + " neste leilão."));
+
+        arrematacao.setArrematante(novoArrematante);
+        arrematacao.setUrlFotoAssinatura(null);
+        arrematacao.setAssinaturaBase64(null);
+        arrematacao.setUrlAutoPdf(null);
 
         return arrematacaoRepository.save(arrematacao);
     }

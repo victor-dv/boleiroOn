@@ -1,4 +1,4 @@
-package br.com.boleiroOn.domain.relatorio.entity;
+package br.com.boleiroOn.config.infra.relatorio.entity;
 
 import br.com.boleiroOn.domain.arrematante.entity.ArrematanteEntity;
 import br.com.boleiroOn.domain.lote.entity.LoteEntity;

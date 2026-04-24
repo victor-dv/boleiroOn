@@ -1,4 +1,4 @@
-package br.com.boleiroOn.domain.relatorio.dto;
+package br.com.boleiroOn.config.infra.relatorio.dto;
 
 import java.math.BigDecimal;
 

@@ -41,7 +41,7 @@ public class PdfGeradorService {
                 : "R$ 0,00");
 
         if (arrematacao.getLote() != null) {
-            context.setVariable("numeroLote", arrematacao.getLote().getId());
+            context.setVariable("numeroLote", arrematacao.getLote().getNumeroLote());
         }
 
         if (arrematacao.getArrematante() != null) {
