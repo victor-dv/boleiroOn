@@ -33,6 +33,13 @@ public class UserController {
         LoginResponseDto response = userService.login(request);
         return ResponseEntity.ok(ApiResponse.success(response, "Login realizado com sucesso"));
     }
+
+    @PostMapping("/forgot-password")
+    public ResponseEntity<ApiResponse<String>> forgotPassword(@RequestBody @Valid ForgotPasswordRequestDto dto) {
+        userService.forgotPassword(dto);
+        return ResponseEntity.ok(ApiResponse.success("E-mail de recuperação enviado com sucesso", "E-mail enviado"));
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<ApiResponse<UserResponseDto>> getById(@PathVariable Long id) {
         var user = userService.getUserById(id);
